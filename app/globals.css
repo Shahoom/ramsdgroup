@@ -1,26 +1,358 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Dark mode is toggled via a `.dark` class on <html> (set by ThemeToggle + no-flash script). */
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
+/* ----------------------------------------------------------------------------
+   Brand palette — "Navy & Gold" (corporate trust)
+   Deep navy/ink-blue + champagne gold + cool light-gray. Raw scales below become
+   Tailwind utilities (bg-navy-700, text-gold-400, …); semantic tokens map onto
+   them and flip between light/dark.
+---------------------------------------------------------------------------- */
+@theme {
+  /* Navy / ink-blue */
+  --color-navy-50: #eef3fa;
+  --color-navy-100: #d6e4f2;
+  --color-navy-200: #aec8e3;
+  --color-navy-300: #7ba3cd;
+  --color-navy-400: #487bae;
+  --color-navy-500: #285c8e;
+  --color-navy-600: #1b4670;
+  --color-navy-700: #0e2a47;
+  --color-navy-800: #0a2038;
+  --color-navy-900: #07182b;
+  --color-navy-950: #040e1a;
+
+  /* Champagne gold / bronze */
+  --color-gold-50: #fbf6ea;
+  --color-gold-100: #f4e8c6;
+  --color-gold-200: #e8ce8d;
+  --color-gold-300: #dab75e;
+  --color-gold-400: #c9a24b;
+  --color-gold-500: #b8862f;
+  --color-gold-600: #9a6f26;
+  --color-gold-700: #79561f;
+  --color-gold-800: #5c421b;
+  --color-gold-900: #3f2e15;
+
+  /* Cool light neutral (paper / light text on navy) */
+  --color-mist-50: #f7f9fc;
+  --color-mist-100: #eef2f8;
+  --color-mist-200: #e0e7f0;
+  --color-mist-300: #ccd6e4;
+  --color-mist-400: #aebccf;
+  --color-mist-500: #8497ad;
+
+  --color-ink: #14202b;
+
+  /* Semantic tokens (resolve via the vars defined in :root / .dark) */
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-border: var(--border-color);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+
+  /* Fonts (set per-locale in the base layer below) */
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --radius: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---- Light theme ---------------------------------------------------------- */
+:root {
+  --background: #eff3f9;
+  --surface: #ffffff;
+  --surface-2: #e5ecf5;
+  --foreground: #14202b;
+  --muted: #56697e;
+  --border-color: rgba(20, 32, 43, 0.1);
+  --primary: #0e2a47;
+  --primary-foreground: #f7f9fc;
+  --accent: #b8862f;
+  --accent-foreground: #14202b;
+  --ring: #c9a24b;
+
+  /* Per-locale font stacks. Arabic is the default (root locale). */
+  --font-body: var(--font-plex-arabic), var(--font-plex-latin), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-heading: var(--font-plex-arabic), ui-sans-serif, sans-serif;
+
+  color-scheme: light;
+}
+
+/* English: refined Latin sans for body, Fraunces serif for display headings. */
+html[lang="en"] {
+  --font-body: var(--font-plex-latin), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-fraunces), Georgia, "Times New Roman", serif;
+}
+
+/* ---- Dark theme ----------------------------------------------------------- */
+.dark {
+  --background: #07152b;
+  --surface: #0c1f3a;
+  --surface-2: #122a4a;
+  --foreground: #e7edf6;
+  --muted: #93a6bd;
+  --border-color: rgba(231, 237, 246, 0.12);
+  --primary: #3b6ea5;
+  --primary-foreground: #07152b;
+  --accent: #d4b05e;
+  --accent-foreground: #07152b;
+  --ring: #d4b05e;
+
+  color-scheme: dark;
+}
+
+/* ----------------------------------------------------------------------------
+   Base layer
+---------------------------------------------------------------------------- */
+@layer base {
+  * {
+    border-color: var(--border-color);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    /* Subtle, fixed atmosphere so light sections never read as flat. */
+    background-image:
+      radial-gradient(
+        55rem 55rem at 100% -8%,
+        color-mix(in srgb, var(--color-gold-400) 8%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        50rem 50rem at -8% 108%,
+        color-mix(in srgb, var(--color-navy-500) 9%, transparent),
+        transparent 58%
+      );
+    background-attachment: fixed;
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.7;
+    /* `clip` (not `hidden`) prevents horizontal overflow WITHOUT turning <body>
+       into a scroll container — which would otherwise break window scroll,
+       position: sticky, and scroll-linked parallax. */
+    overflow-x: clip;
+  }
+
+  /* Arabic benefits from a more generous line-height. */
+  html[lang="ar"] body {
+    line-height: 1.85;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  html[lang="ar"] h1,
+  html[lang="ar"] h2,
+  html[lang="ar"] h3,
+  html[lang="ar"] h4,
+  html[lang="ar"] .font-display {
+    letter-spacing: 0;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  /* Arabic is cursive — letter-spacing breaks the letter joins. Neutralize any
+     tracking/uppercase-style utilities for Arabic (kickers, eyebrows, etc.). */
+  html[lang="ar"] [class*="tracking"] {
+    letter-spacing: 0 !important;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-400);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Subtle, on-brand scrollbar */
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--muted) 45%, transparent);
+    border-radius: 99px;
+    border: 3px solid var(--background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ----------------------------------------------------------------------------
+   Utilities & atmospheric details
+---------------------------------------------------------------------------- */
+@layer utilities {
+  /* Champagne gold text gradient for accent words */
+  .text-gold-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--color-gold-500),
+      var(--color-gold-300) 45%,
+      var(--color-gold-500)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Fine grain overlay for depth */
+  .bg-grain {
+    position: relative;
+  }
+  .bg-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Layered radial "mesh" atmosphere for dark navy sections */
+  .mesh-navy {
+    background-color: var(--color-navy-900);
+    background-image: radial-gradient(
+        60% 80% at 15% 0%,
+        color-mix(in srgb, var(--color-navy-500) 60%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        50% 70% at 90% 18%,
+        color-mix(in srgb, var(--color-gold-600) 26%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        70% 90% at 60% 110%,
+        color-mix(in srgb, var(--color-navy-700) 85%, transparent),
+        transparent 60%
+      );
+  }
+
+  .shadow-elevated {
+    box-shadow:
+      0 1px 1px rgba(7, 24, 43, 0.04),
+      0 4px 10px -4px rgba(7, 24, 43, 0.09),
+      0 18px 44px -18px rgba(7, 24, 43, 0.22);
+  }
+
+  .shadow-float {
+    box-shadow:
+      0 2px 4px -2px rgba(7, 24, 43, 0.1),
+      0 28px 64px -22px rgba(7, 24, 43, 0.32);
+  }
+
+  /* Gold hairline divider, e.g. between sections */
+  .gold-hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--color-gold-400) 55%, transparent),
+      transparent
+    );
+  }
+
+  .shadow-gold-glow {
+    box-shadow: 0 10px 40px -12px color-mix(in srgb, var(--color-gold-500) 50%, transparent);
+  }
+
+  /* Animated draw for the thread/lemniscate strokes */
+  .draw-on-view {
+    stroke-dasharray: var(--len, 1);
+    stroke-dashoffset: var(--len, 1);
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Thread + lemniscate (∞) motion
+---------------------------------------------------------------------------- */
+@layer utilities {
+  /* A "comet" segment that travels endlessly along a path (path uses pathLength="1"). */
+  .thread-comet {
+    stroke-dasharray: 0.16 0.84;
+    animation: thread-comet 8s linear infinite;
+  }
+  .infinity-comet {
+    stroke-dasharray: 0.42 0.58;
+    animation: infinity-comet 3.6s linear infinite;
+  }
+  .thread-drift {
+    animation: thread-drift 20s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+
+@keyframes thread-comet {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes infinity-comet {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes thread-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -16px, 0);
+  }
+}
+
+/* Reduced-motion safety net: neutralize decorative transforms/animations.
+   Component-level logic (useReducedMotion) handles the rest. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
