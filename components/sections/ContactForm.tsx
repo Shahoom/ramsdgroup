@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { Info, Send, CheckCircle2, AlertCircle, Loader2, MessageCircle } from "lucide-react";
+import { Info, CheckCircle2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { SITE } from "@/lib/site";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "success";
 type Field = "name" | "email" | "subject" | "message";
 type Errors = Partial<Record<Field, boolean>>;
 
@@ -45,30 +45,12 @@ export function ContactForm() {
     return !Object.values(nextErrors).some(Boolean);
   }
 
-  async function onSubmitEmail(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const values = collectValues();
     if (!validate(values) || !values) return;
     if (values.company) { setStatus("success"); return; } // honeypot
 
-    setStatus("submitting");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      if (!res.ok) throw new Error("request failed");
-      setStatus("success");
-      formRef.current?.reset();
-    } catch {
-      setStatus("error");
-    }
-  }
-
-  function onSendWhatsApp() {
-    const values = collectValues();
-    if (!validate(values) || !values) return;
     const text = [
       `*${values.name}*`,
       values.email ? `Email: ${values.email}` : "",
@@ -79,6 +61,7 @@ export function ContactForm() {
     ]
       .filter(Boolean)
       .join("\n");
+
     window.open(
       `https://api.whatsapp.com/send?phone=${SITE.whatsappNumber}&text=${encodeURIComponent(text)}`,
       "_blank",
@@ -111,7 +94,7 @@ export function ContactForm() {
           <p className="font-medium">{tf("success")}</p>
         </div>
       ) : (
-        <form ref={formRef} onSubmit={onSubmitEmail} noValidate className="mt-6 space-y-5">
+        <form ref={formRef} onSubmit={onSubmit} noValidate className="mt-6 space-y-5">
           {/* honeypot */}
           <input
             type="text"
@@ -218,39 +201,14 @@ export function ContactForm() {
             )}
           </div>
 
-          {status === "error" && (
-            <p role="alert" className="flex items-center gap-2 text-sm text-red-600">
-              <AlertCircle className="size-4" />
-              {tf("error")}
-            </p>
-          )}
-
-          <div className="flex flex-wrap gap-3">
-            <Button type="submit" size="lg" disabled={status === "submitting"} className="flex-1 sm:flex-none">
-              {status === "submitting" ? (
-                <>
-                  <Loader2 className="size-5 animate-spin" />
-                  {tf("sending")}
-                </>
-              ) : (
-                <>
-                  <Send className="size-[1.05em]" />
-                  {tf("submit")}
-                </>
-              )}
-            </Button>
-            <Button
-              type="button"
-              size="lg"
-              variant="outline"
-              disabled={status === "submitting"}
-              onClick={onSendWhatsApp}
-              className="flex-1 border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10 sm:flex-none"
-            >
-              <MessageCircle className="size-[1.05em]" />
-              {tf("sendWhatsApp")}
-            </Button>
-          </div>
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full bg-[#25D366] text-white hover:bg-[#1ebe5d] sm:w-auto"
+          >
+            <MessageCircle className="size-[1.05em]" />
+            {tf("sendWhatsApp")}
+          </Button>
         </form>
       )}
     </div>

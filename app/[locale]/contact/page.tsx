@@ -74,7 +74,7 @@ function ContactFacts() {
   const facts = [
     { icon: MapPin, label: location, href: LINKS.mapsDirections, ltr: false },
     { icon: Mail, label: SITE.email, href: LINKS.email, ltr: true },
-    { icon: Phone, label: SITE.phoneDisplay, href: LINKS.phone, ltr: true },
+    { icon: Phone, label: SITE.phoneDisplay, href: LINKS.whatsapp, ltr: true },
   ];
 
   return (

@@ -38,8 +38,9 @@ export const LINKS = {
     "https://drive.google.com/file/d/1ck2c5fqffn_BbOq96NI9p-leHA3YoWvh/view?usp=sharing",
   // Driving directions to the office (Google Maps share link).
   mapsDirections: "https://maps.app.goo.gl/YS1HWK81eW1KoZL48",
-  // Embeddable map centered on the office.
-  mapsEmbed: `https://maps.google.com/maps?q=${SITE.location.lat},${SITE.location.lng}&z=15&output=embed`,
+  // Embeddable map pinned to the exact office location via place ID.
+  mapsEmbed:
+    "https://maps.google.com/maps?q=رام+للتنمية+المستدامة,+Ghala,+Muscat,+Oman&ftid=0x3e91ffe32e15f0db:0x81eaf548b998d67b&output=embed&z=16",
 } as const;
 
 /** Navigation order: Home → Debt → Travel → About → Contact. */
