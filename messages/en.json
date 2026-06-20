@@ -5,11 +5,6 @@
       "description": "RAM Sustainable Development (رام للتنمية المستدامة) — expert worldwide visa services, travel & tourism, and professional debt collection & recovery in Muscat, Sultanate of Oman. Schengen, US, UK, GCC visas and cross-border civil judgment enforcement.",
       "keywords": "debt collection Oman, debt recovery Muscat, visa services Muscat, travel agency Oman, Schengen visa Oman, رام للتنمية المستدامة, RAM Sustainable Development, تحصيل ديون عمان, تأشيرات مسقط"
     },
-    "travel": {
-      "title": "Worldwide Visa & Travel Services — RAM Sustainable Development | Muscat",
-      "description": "Worldwide visa & travel services from RAM: Schengen, US, UK, Canada, Australia, GCC and more, plus flights, hotels and insurance. Expert visa assistance from Muscat, Oman.",
-      "keywords": "worldwide visas Oman, Schengen visa Muscat, visa services Oman, travel agency Muscat, تأشيرات حول العالم, visa application Oman"
-    },
     "about": {
       "title": "About Us – RAM Sustainable Development | Muscat, Oman",
       "description": "Meet RAM Sustainable Development: an Omani firm at the intersection of law, economics and business — worldwide visa & travel services, debt collection and consulting in Muscat, Oman."
@@ -24,11 +19,9 @@
       "description": "Get in touch with RAM Sustainable Development — Muscat, Oman. WhatsApp, email or visit us. We answer all inquiries within 24 hours."
     }
   },
-
   "nav": {
     "home": "Home",
     "about": "About Us",
-    "travel": "Travel & Tourism",
     "debt": "Debt Collection",
     "contact": "Contact Us",
     "liveReply": "Live Reply",
@@ -36,7 +29,6 @@
     "closeMenu": "Close menu",
     "brandAlt": "RAM Sustainable Development"
   },
-
   "common": {
     "learnMore": "Learn more",
     "bookShort": "Book an appointment",
@@ -65,7 +57,6 @@
       "goTo": "Go to review {index}"
     }
   },
-
   "footer": {
     "about": "We sit at the intersection of law, economics, and business management to build sustainable growth that protects your time and safeguards your rights.",
     "exploreHeading": "Explore",
@@ -75,7 +66,6 @@
     "directions": "Get directions",
     "rights": "©All rights reserved RAM Sustainable Development CO."
   },
-
   "home": {
     "hero": {
       "kicker": "RAM Sustainable Development",
@@ -95,13 +85,15 @@
       "heading": "Why choose RAM Sustainable Development"
     },
     "services": {
-      "travel": {
-        "title": "Travel & Tourism",
-        "sub": "Worldwide visas — Schengen, US, UK, Canada, GCC and beyond — plus flights, hotels and insurance. Your journey, start to finish."
-      },
       "debt": {
         "kicker": "Consulting & Debt Collection",
-        "heading": "Collect your debts from companies and individuals for a secure tomorrow."
+        "heading": "Collect your debts from companies and individuals for a secure tomorrow.",
+        "sub": "We help you recover what's owed from companies and individuals — through amicable or legal means — with full confidentiality and meticulous follow-up at every stage.",
+        "highlights": {
+          "confidentiality": "Total file confidentiality",
+          "speed": "Funds transferred in 48 hrs",
+          "crossBorder": "Cross-border judgment enforcement"
+        }
       }
     },
     "servicesBand": {
@@ -132,13 +124,11 @@
       "heading": "Reviews from our esteemed clients"
     }
   },
-
   "cta": {
     "heading": "Time is the most valuable resource — we can neither recover it nor replace it, and it is the thread upon which every decision is built.",
     "sub": "The fast, advancing world waits for no one.",
     "button": "Book an appointment for consultations on any of RAM Sustainable Development's services."
   },
-
   "testimonials": {
     "items": {
       "1": {
@@ -178,136 +168,6 @@
       }
     }
   },
-
-  "travel": {
-    "hero": {
-      "kicker": "Discover the world the right way",
-      "title": "Travel, Tourism & Worldwide Visas",
-      "subtitle": "We believe every journey begins with a step — and we're here to turn that step into reality. From visas to flights, hotels and insurance, we're with you at every stage so you travel with confidence."
-    },
-    "intro": {
-      "kicker": "Your partner on every journey",
-      "heading": "Consulting & applications for foreign visas",
-      "body": "RAM's success lies in its focus on quality and efficiency in every detail of preparing visa files for every country in the world. We draw on our diverse experience and professional approach to deliver honest, expert service that achieves results beyond expectations."
-    },
-    "vision": {
-      "title": "Our Travel Vision",
-      "body": "Our vision centers on delivering the best tailored services to our clients, ensuring integrated solutions that meet their needs and fulfill their travel aspirations smoothly and efficiently. We work diligently and professionally to be the ideal partner for everyone pursuing their dream of traveling abroad."
-    },
-    "mission": {
-      "title": "Our Travel Mission",
-      "body": "We provide reliable, professional services that simplify the visa application process for our clients, with specialized consulting that helps them realize their goals of traveling, working or studying abroad — committed to the highest standards of quality and transparency at every stage."
-    },
-    "destinations": {
-      "kicker": "Featured destinations",
-      "heading": "We focus on the two most-requested destinations",
-      "sub": "Specialized expertise in Saudi visas and the Schengen visa that opens 29 European countries with a single application.",
-      "saudi": {
-        "title": "Saudi Arabia Visa",
-        "body": "We handle every type of Saudi Arabia visa — from tourism, Umrah and Hajj to family visits and business — taking care of the application, documents and appointment booking on your behalf, quickly and accurately.",
-        "typesLabel": "Visa types",
-        "types": [
-          "Tourist e-Visa",
-          "Umrah visa",
-          "Hajj visa",
-          "Family / personal visit",
-          "Business visa",
-          "Work visa",
-          "Transit visa"
-        ]
-      },
-      "schengen": {
-        "title": "Schengen Visa — Europe",
-        "body": "One visa that opens 29 countries across the Schengen Area for any travel purpose. We prepare your file to each consulate's requirements and arrange bookings and insurance to maximize approval chances.",
-        "typesLabel": "Visa purposes",
-        "types": [
-          "Tourism",
-          "Family & friends visit",
-          "Business & conferences",
-          "Study & training",
-          "Medical treatment",
-          "Transit"
-        ],
-        "countriesLabel": "Top Schengen countries",
-        "countries": ["France", "Germany", "Italy", "Spain", "Netherlands", "Greece", "Switzerland", "Austria", "Portugal", "Belgium"]
-      }
-    },
-    "worldwide": {
-      "kicker": "No limits on your destination",
-      "heading": "And visas for destinations worldwide",
-      "body": "We don't stop at Saudi and Europe — we provide visa and travel services for destinations across the globe, wherever you're headed next.",
-      "regions": ["United States", "United Kingdom", "Canada", "Australia", "GCC", "Türkiye", "Asia", "& more"]
-    },
-    "services": {
-      "kicker": "One roof, full service",
-      "heading": "Everything you need for your trip",
-      "sub": "From the visa to flights, hotels and insurance — we deliver a smooth travel experience end to end.",
-      "items": {
-        "visaAssistance": "Visa Assistance",
-        "formFilling": "Form Filling",
-        "appointment": "Appointment Scheduling",
-        "documents": "Documents Verification",
-        "insurance": "Travel Insurance",
-        "flight": "Flight Facilitation",
-        "hotel": "Hotel Facilitation",
-        "telecom": "Telecom Services",
-        "photograph": "Photograph",
-        "photocopy": "Photocopy & Printouts",
-        "corporate": "Corporate Services",
-        "more": "& Much More"
-      }
-    },
-    "process": {
-      "kicker": "How it works",
-      "heading": "Four steps between you and your trip",
-      "sub": "We work with you step by step, all the way to visa issuance.",
-      "step1": {
-        "title": "Choose your destination & visa type",
-        "body": "Get in touch and pick your destination (Saudi or Schengen) and the right visa type for you."
-      },
-      "step2": {
-        "title": "We prepare & fill your application",
-        "body": "We complete the forms and gather the required documents per the consulate's requirements."
-      },
-      "step3": {
-        "title": "Document check & appointment",
-        "body": "We carefully review your file and book your appointment at the visa center to avoid delays."
-      },
-      "step4": {
-        "title": "Submission & tracking to issuance",
-        "body": "We track your application until the visa is issued, plus travel add-ons: flights, hotels and insurance when needed."
-      }
-    },
-    "why": {
-      "kicker": "Why RAM",
-      "heading": "Your visa in expert hands",
-      "expertise": {
-        "title": "Years of expertise",
-        "body": "Years of experience dealing with consulates and visa centers across destinations."
-      },
-      "endToEnd": {
-        "title": "End-to-end service",
-        "body": "From form filling to flights, hotels and insurance — everything under one roof."
-      },
-      "accuracy": {
-        "title": "Accuracy that reduces refusals",
-        "body": "We prepare your file to each consulate's requirements to reduce the chance of refusal and speed things up."
-      }
-    },
-    "faq": {
-      "kicker": "Frequently asked",
-      "heading": "Everything you want to know about visas",
-      "items": [
-        { "q": "What is a Schengen visa?", "a": "A Schengen visa is a single permit that lets you travel to 29 European countries within the Schengen Area for tourism, business or visits, for up to 90 days within any 180-day period." },
-        { "q": "How long does the visa process take?", "a": "It depends on the destination and visa type. Some visas are issued within days, while a Schengen visa typically takes about two weeks to a month depending on the consulate and the application season." },
-        { "q": "What documents are required for a visa?", "a": "Core documents include a valid passport, a photo, flight and hotel bookings, travel insurance, and a bank statement. We review your file and prepare the requirements for each consulate." },
-        { "q": "Do you offer visas for every country?", "a": "Yes. We provide visa services for most destinations worldwide — Saudi Arabia, Europe (Schengen), the United States, the United Kingdom, Canada, Australia and more." },
-        { "q": "Do you guarantee the visa?", "a": "The final decision rests with the consulate and cannot be guaranteed by anyone, but we prepare your file professionally to official requirements to maximize approval chances and track it through to issuance." },
-        { "q": "Do you help with flights, hotels and insurance?", "a": "Yes. We offer end-to-end travel service including flight bookings, hotels and travel insurance alongside the visa, so your trip is fully ready from one place." }
-      ]
-    }
-  },
-
   "debt": {
     "hero": {
       "kicker": "Collect today's debts for a secure tomorrow.",
@@ -399,25 +259,99 @@
       "kicker": "Who we serve",
       "heading": "We serve individuals and businesses of every size",
       "sub": "Whether you're an individual, a startup, or an established institution — RAM pursues your rights with the same professionalism and confidentiality.",
-      "segments": ["Individuals", "Large companies", "Medium-sized companies", "Startups"],
+      "segments": [
+        "Individuals",
+        "Large companies",
+        "Medium-sized companies",
+        "Startups"
+      ],
       "examplesLabel": "Sectors we have served include, but are not limited to:",
-      "examples": ["Factories", "Hospitals", "Schools & universities", "Law offices", "Real-estate offices", "Car-rental companies"]
+      "examples": [
+        "Factories",
+        "Hospitals",
+        "Schools & universities",
+        "Law offices",
+        "Real-estate offices",
+        "Car-rental companies"
+      ]
     },
     "faq": {
       "kicker": "Frequently asked",
       "heading": "Debt collection — frequently asked questions",
       "items": [
-        { "q": "How long does debt collection take?", "a": "Some debts are collected within a week, while others can take up to a year, depending on the debt's age and size, the debtor's location, and how cooperative they are." },
-        { "q": "When do I receive the collected funds?", "a": "Collected amounts are deposited into your bank account or transferred to you within 48 hours locally, and within one day to a week for international collection, depending on the debtor's country." },
-        { "q": "What types of debt do you handle?", "a": "We handle labor claims, invoice and rent claims, personal debts, and bad (written-off) debts — for both companies and individuals." },
-        { "q": "Is my information kept confidential?", "a": "Yes. We place the confidentiality and security of information at the top of our priorities, resort to legal action only when necessary, and fully protect your financial reputation." },
-        { "q": "Do you handle debtors outside Oman?", "a": "Yes. We pursue collection locally and internationally, and may coordinate with our legal departments to file lawsuits in local and international courts when needed." },
-        { "q": "Are you a licensed debt collection company?", "a": "Yes. RAM Sustainable Development is licensed by the Ministry of Commerce, Industry and Investment Promotion of the Sultanate of Oman, holding all necessary licenses to practice debt collection and financial advisory services." },
-        { "q": "Who are your clients?", "a": "We serve individuals, large companies, mid-sized firms, and startups. Sectors we have served include factories, hospitals, schools, universities, law offices, real-estate offices, and car-rental companies." }
+        {
+          "q": "How long does debt collection take?",
+          "a": "Some debts are collected within a week, while others can take up to a year, depending on the debt's age and size, the debtor's location, and how cooperative they are."
+        },
+        {
+          "q": "When do I receive the collected funds?",
+          "a": "Collected amounts are deposited into your bank account or transferred to you within 48 hours locally, and within one day to a week for international collection, depending on the debtor's country."
+        },
+        {
+          "q": "What types of debt do you handle?",
+          "a": "We handle labor claims, invoice and rent claims, personal debts, and bad (written-off) debts — for both companies and individuals."
+        },
+        {
+          "q": "Is my information kept confidential?",
+          "a": "Yes. We place the confidentiality and security of information at the top of our priorities, resort to legal action only when necessary, and fully protect your financial reputation."
+        },
+        {
+          "q": "Do you handle debtors outside Oman?",
+          "a": "Yes. We pursue collection locally and internationally, and may coordinate with our legal departments to file lawsuits in local and international courts when needed."
+        },
+        {
+          "q": "Are you a licensed debt collection company?",
+          "a": "Yes. RAM Sustainable Development is licensed by the Ministry of Commerce, Industry and Investment Promotion of the Sultanate of Oman, holding all necessary licenses to practice debt collection and financial advisory services."
+        },
+        {
+          "q": "Who are your clients?",
+          "a": "We serve individuals, large companies, mid-sized firms, and startups. Sectors we have served include factories, hospitals, schools, universities, law offices, real-estate offices, and car-rental companies."
+        }
+      ]
+    },
+    "process": {
+      "kicker": "How we work",
+      "heading": "Four steps to recovering what's yours",
+      "step1": {
+        "title": "Free initial assessment",
+        "body": "We review your file and evaluate the full situation — free of charge, with no obligation on your part."
+      },
+      "step2": {
+        "title": "Recovery strategy",
+        "body": "We design a tailored plan: amicable, legal, or a combination — based on the debt and the debtor's profile."
+      },
+      "step3": {
+        "title": "Professional fieldwork",
+        "body": "We engage debtors directly and systematically, while carefully protecting your reputation and business relationships."
+      },
+      "step4": {
+        "title": "Fast funds transfer",
+        "body": "Once your funds are recovered, they're transferred within 48 hours locally, or 1–7 days for international transfers."
+      }
+    },
+    "pledge": {
+      "kicker": "Our commitment",
+      "heading": "Promises we never compromise on",
+      "items": [
+        {
+          "title": "Total confidentiality",
+          "body": "Your data and files are fully protected and never shared with any third party under any circumstances."
+        },
+        {
+          "title": "Full transparency",
+          "body": "We keep you informed of every development in your case — no surprises, no ambiguity."
+        },
+        {
+          "title": "Legal methods only",
+          "body": "We operate strictly within Oman's legal framework and never resort to unlawful means."
+        },
+        {
+          "title": "Free first consultation",
+          "body": "We assess your file and guide you in the first meeting at no charge and with no obligations."
+        }
       ]
     }
   },
-
   "contact": {
     "title": "Contact Us",
     "intro": "We're always glad to answer all your questions and provide the support you need. We believe that continuous communication is the key to a successful experience — so we're here to answer everything on your mind and provide the right solutions to help you reach your goal with confidence and peace of mind.",
@@ -451,7 +385,6 @@
       "button": "Message us on WhatsApp"
     }
   },
-
   "about": {
     "hero": {
       "kicker": "About us",
@@ -465,12 +398,8 @@
       "body2": "That is why RAM Sustainable Development was born — to be that connecting thread: an integrated team bringing together the most important services the modern world needs, from travel and visas to debt collection and consulting. Our clients' trust has kept us among the leading firms year after year."
     },
     "pillars": {
-      "kicker": "What we do",
-      "heading": "Integrated services under one roof",
-      "travel": {
-        "title": "Travel & Tourism",
-        "body": "Saudi, European and worldwide visas, plus flights, hotels and insurance."
-      },
+      "kicker": "Our core service",
+      "heading": "Debt collection: what we do best",
       "debt": {
         "title": "Debt Collection",
         "body": "Recover your debts from companies and individuals using the latest global standards, fully confidential."
@@ -511,7 +440,6 @@
       "cta": "Join the volunteer team"
     }
   },
-
   "notFound": {
     "title": "Page not found",
     "body": "This page may have moved or no longer exists. Let's get you back to the main thread.",

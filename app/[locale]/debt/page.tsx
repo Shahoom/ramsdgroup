@@ -4,7 +4,7 @@ import { Quote, ShieldCheck } from "lucide-react";
 
 import type { Locale } from "@/i18n/routing";
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
-import { DEBT_VALUES, DEBT_BENEFITS, DEBT_TYPES } from "@/lib/content";
+import { DEBT_VALUES, DEBT_BENEFITS, DEBT_TYPES, DEBT_PROCESS_STEPS } from "@/lib/content";
 
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,6 +12,7 @@ import { SectionReveal, Stagger, StaggerItem } from "@/components/motion/Section
 import { JsonLd } from "@/components/seo/JsonLd";
 
 import { PageHero } from "@/components/sections/PageHero";
+import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
 import { IntroBand } from "@/components/sections/IntroBand";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import { FAQ } from "@/components/sections/FAQ";
@@ -116,6 +117,21 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
         </Container>
       </section>
 
+      {/* Debt recovery process */}
+      <section className="bg-surface-2/60 py-20 lg:py-28">
+        <Container>
+          <SectionHeading
+            kicker={t("process.kicker")}
+            heading={t("process.heading")}
+            align="center"
+            className="mb-16"
+          />
+          <div className="mx-auto max-w-3xl">
+            <ProcessTimeline ns="debt.process" steps={DEBT_PROCESS_STEPS} />
+          </div>
+        </Container>
+      </section>
+
       {/* Cross-border civil judgment enforcement */}
       <section className="py-20 lg:py-28">
         <Container>
@@ -147,6 +163,29 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
                     <Icon className="size-7" strokeWidth={1.75} />
                   </span>
                   <span className="font-semibold leading-snug">{t(`debtTypes.items.${id}`)}</span>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </Container>
+      </section>
+
+      {/* Our commitment */}
+      <section className="py-20 lg:py-28">
+        <Container>
+          <SectionHeading
+            kicker={t("pledge.kicker")}
+            heading={t("pledge.heading")}
+            align="center"
+            className="mb-12"
+          />
+          <Stagger className="grid gap-5 sm:grid-cols-2">
+            {(t.raw("pledge.items") as { title: string; body: string }[]).map((item, i) => (
+              <StaggerItem key={i}>
+                <div className="flex h-full flex-col gap-3 rounded-2xl border border-gold-400/25 bg-gold-400/[0.04] p-6 sm:p-7">
+                  <span className="size-2 rounded-full bg-gold-400" aria-hidden />
+                  <h3 className="text-lg font-bold">{item.title}</h3>
+                  <p className="leading-relaxed text-muted">{item.body}</p>
                 </div>
               </StaggerItem>
             ))}

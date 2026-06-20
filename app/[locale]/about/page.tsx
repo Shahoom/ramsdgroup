@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { PlaneTakeoff, Scale, ArrowUpRight, HeartHandshake } from "lucide-react";
+import { Scale, ArrowUpRight, HeartHandshake } from "lucide-react";
 
 import type { Locale } from "@/i18n/routing";
 import { buildMetadata, breadcrumbJsonLd } from "@/lib/seo";
@@ -31,7 +31,6 @@ export async function generateMetadata({
 }
 
 const PILLARS = [
-  { id: "travel", href: "/travel", icon: PlaneTakeoff },
   { id: "debt", href: "/debt", icon: Scale },
 ] as const;
 
@@ -79,26 +78,24 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             heading={t("pillars.heading")}
             className="mb-14"
           />
-          <Stagger className="grid gap-6 md:grid-cols-2">
-            {PILLARS.map(({ id, href, icon: Icon }) => (
-              <StaggerItem key={id}>
-                <Link
-                  href={href}
-                  className="group relative block h-full overflow-hidden rounded-3xl border border-border bg-surface p-8 shadow-elevated transition-all duration-500 hover:-translate-y-1 hover:border-gold-400/50 sm:p-10"
-                >
-                  <span className="grid size-16 place-items-center rounded-2xl bg-navy-700 text-mist-50 shadow-elevated transition-transform duration-500 group-hover:scale-105 dark:bg-navy-600">
-                    <Icon className="size-8" strokeWidth={1.75} />
-                  </span>
-                  <h3 className="mt-7 text-2xl font-bold">{t(`pillars.${id}.title`)}</h3>
-                  <p className="mt-3 text-lg leading-relaxed text-muted">{t(`pillars.${id}.body`)}</p>
-                  <span className="mt-7 inline-flex items-center gap-2 font-medium text-navy-700 dark:text-gold-300">
-                    {tc("learnMore")}
-                    <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
-                  </span>
-                </Link>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          {PILLARS.map(({ id, href, icon: Icon }) => (
+            <SectionReveal key={id}>
+              <Link
+                href={href}
+                className="group relative block overflow-hidden rounded-3xl border border-border bg-surface p-8 shadow-elevated transition-all duration-500 hover:-translate-y-1 hover:border-gold-400/50 hover:shadow-float sm:p-12"
+              >
+                <span className="grid size-16 place-items-center rounded-2xl bg-navy-700 text-mist-50 shadow-elevated transition-transform duration-500 group-hover:scale-105 dark:bg-navy-600">
+                  <Icon className="size-8" strokeWidth={1.75} />
+                </span>
+                <h3 className="mt-7 text-2xl font-bold sm:text-3xl">{t(`pillars.${id}.title`)}</h3>
+                <p className="mt-3 text-lg leading-relaxed text-muted sm:max-w-2xl">{t(`pillars.${id}.body`)}</p>
+                <span className="mt-7 inline-flex items-center gap-2 font-medium text-navy-700 dark:text-gold-300">
+                  {tc("learnMore")}
+                  <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
+                </span>
+              </Link>
+            </SectionReveal>
+          ))}
         </Container>
       </section>
 

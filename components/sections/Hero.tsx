@@ -78,7 +78,7 @@ export function Hero() {
               withArrow
               className="border-mist-50/30 text-mist-50 hover:border-mist-50/60 hover:bg-mist-50/10"
             >
-              <Link href="/travel">{tc("exploreServices")}</Link>
+              <Link href="/debt">{tc("exploreServices")}</Link>
             </Button>
           </motion.div>
         </div>

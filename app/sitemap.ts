@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { localizedUrl } from "@/lib/seo";
 
-const PATHS = ["", "/about", "/travel", "/debt", "/contact"] as const;
+const PATHS = ["", "/debt", "/about", "/contact"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

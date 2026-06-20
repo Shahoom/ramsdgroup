@@ -65,8 +65,8 @@ export function buildMetadata({
 export function organizationJsonLd(locale: Locale) {
   const description =
     locale === "ar"
-      ? "رام للتنمية المستدامة — أفضل شركة تحصيل ديون في مسقط، سلطنة عُمان. نقدّم خدمات تأشيرات حول العالم (شنغن وأمريكا وبريطانيا ودول الخليج)، والسياحة والسفر، وتحصيل الديون، وتنفيذ الأحكام المدنية العابرة للحدود."
-      : "RAM Sustainable Development — best debt collection company in Muscat, Oman. We offer worldwide visa services (Schengen, US, UK, GCC), travel & tourism, professional debt collection & recovery, and cross-border civil judgment enforcement.";
+      ? "رام للتنمية المستدامة — أفضل شركة تحصيل ديون في مسقط، سلطنة عُمان. نقدّم خدمات تحصيل الديون الاحترافية من الشركات والأفراد، والاستشارات المالية، وتنفيذ الأحكام المدنية العابرة للحدود. مرخصون بوزارة التجارة العُمانية."
+      : "RAM Sustainable Development — best debt collection company in Muscat, Oman. Licensed by the Ministry of Commerce. Professional debt collection from companies and individuals, financial advisory, and cross-border civil judgment enforcement.";
 
   return {
     "@context": "https://schema.org",

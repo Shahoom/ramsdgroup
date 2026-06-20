@@ -58,14 +58,14 @@ export function Header() {
               height={70}
               priority
               className={cn(
-                "h-11 w-auto object-contain drop-shadow-sm transition-[filter,height] duration-500 sm:h-14",
+                "h-12 w-auto object-contain drop-shadow-sm transition-[filter,height] duration-500 sm:h-16",
                 logoLight && "brightness-0 invert drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]",
               )}
             />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
               return (
@@ -92,7 +92,7 @@ export function Header() {
           </nav>
 
           {/* Desktop actions */}
-          <div className="hidden items-center gap-2 xl:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             <LanguageSwitcher />
             <ThemeToggle />
             <a
@@ -109,7 +109,7 @@ export function Header() {
           {/* Mobile toggle — sits above the drawer (z-50 header > z-40 drawer) */}
           <button
             type="button"
-            className="relative z-10 grid size-11 place-items-center xl:hidden"
+            className="relative z-10 grid size-11 place-items-center lg:hidden"
             aria-expanded={open}
             aria-label={open ? t("closeMenu") : t("openMenu")}
             onClick={() => setOpen((v) => !v)}
@@ -146,7 +146,7 @@ export function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="mesh-navy fixed inset-0 z-40 flex flex-col text-mist-50 xl:hidden"
+            className="mesh-navy fixed inset-0 z-40 flex flex-col text-mist-50 lg:hidden"
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: "-100%" }}
             animate={reduce ? { opacity: 1 } : { opacity: 1, y: "0%" }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: "-100%" }}

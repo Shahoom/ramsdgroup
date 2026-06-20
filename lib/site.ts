@@ -43,11 +43,10 @@ export const LINKS = {
     "https://maps.google.com/maps?q=رام+للتنمية+المستدامة,+Ghala,+Muscat,+Oman&ftid=0x3e91ffe32e15f0db:0x81eaf548b998d67b&output=embed&z=16",
 } as const;
 
-/** Navigation order: Home → Debt → Travel → About → Contact. */
+/** Navigation order: Home → Debt → About → Contact. */
 export const NAV_ITEMS = [
   { key: "home", href: "/" },
   { key: "debt", href: "/debt" },
-  { key: "travel", href: "/travel" },
   { key: "about", href: "/about" },
   { key: "contact", href: "/contact" },
 ] as const;
