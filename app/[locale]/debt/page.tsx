@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Quote, ShieldCheck } from "lucide-react";
+import {
+  Quote,
+  ShieldCheck,
+  Factory,
+  Stethoscope,
+  Building,
+  Building2,
+  UserRound,
+  Car,
+  Home,
+  GraduationCap,
+  Scale,
+  Sprout,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import type { Locale } from "@/i18n/routing";
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
@@ -37,6 +51,24 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
   const nav = await getTranslations({ locale, namespace: "nav" });
   const meta = await getTranslations({ locale, namespace: "meta.debt" });
   const faqItems = t.raw("faq.items") as { q: string; a: string }[];
+  const segments = t.raw("clientTypes.segments") as string[];
+  const examples = t.raw("clientTypes.examples") as string[];
+
+  const clientTypeSegments = [
+    { icon: UserRound, label: segments[0] },
+    { icon: Building2, label: segments[1] },
+    { icon: Building, label: segments[2] },
+    { icon: Sprout, label: segments[3] },
+  ];
+
+  const clientTypeSectors = [
+    { icon: Factory, label: examples[0], accent: "bg-navy-700/10 text-navy-700 dark:bg-navy-600/25 dark:text-navy-200" },
+    { icon: Stethoscope, label: examples[1], accent: "bg-gold-400/10 text-gold-700 dark:bg-gold-400/15 dark:text-gold-300" },
+    { icon: GraduationCap, label: examples[2], accent: "bg-navy-700/10 text-navy-700 dark:bg-navy-600/25 dark:text-navy-200" },
+    { icon: Scale, label: examples[3], accent: "bg-gold-400/10 text-gold-700 dark:bg-gold-400/15 dark:text-gold-300" },
+    { icon: Home, label: examples[4], accent: "bg-navy-700/10 text-navy-700 dark:bg-navy-600/25 dark:text-navy-200" },
+    { icon: Car, label: examples[5], accent: "bg-gold-400/10 text-gold-700 dark:bg-gold-400/15 dark:text-gold-300" },
+  ];
 
   return (
     <>
@@ -118,7 +150,7 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
       </section>
 
       {/* Debt recovery process */}
-      <section className="bg-surface-2/60 py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <Container>
           <SectionHeading
             kicker={t("process.kicker")}
@@ -133,7 +165,7 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
       </section>
 
       {/* Cross-border civil judgment enforcement */}
-      <section className="py-20 lg:py-28">
+      <section className="bg-surface-2/60 py-20 lg:py-28">
         <Container>
           <SectionReveal className="relative overflow-hidden rounded-3xl border border-gold-400/30 bg-gold-400/[0.06] px-6 py-12 sm:px-12 sm:py-14">
             <div className="mx-auto max-w-3xl">
@@ -171,7 +203,7 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
       </section>
 
       {/* Our commitment */}
-      <section className="py-20 lg:py-28">
+      <section className="bg-surface-2/60 py-20 lg:py-28">
         <Container>
           <SectionHeading
             kicker={t("pledge.kicker")}
@@ -194,38 +226,49 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
       </section>
 
       {/* Who we serve */}
-      <section className="bg-surface-2/60 py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <Container>
           <SectionHeading
             kicker={t("clientTypes.kicker")}
             heading={t("clientTypes.heading")}
             sub={t("clientTypes.sub")}
             align="center"
-            className="mb-12"
+            className="mb-14"
           />
-          <div className="flex flex-wrap justify-center gap-3 mb-10">
-            {(t.raw("clientTypes.segments") as string[]).map((seg) => (
-              <span
-                key={seg}
-                className="rounded-full border border-navy-500/30 bg-navy-700/10 px-5 py-2 text-sm font-semibold text-navy-700 dark:text-navy-200"
-              >
-                {seg}
-              </span>
+          <Stagger className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {clientTypeSegments.map(({ icon: Icon, label }) => (
+              <StaggerItem key={label}>
+                <div className="flex h-full flex-col items-center gap-3 rounded-2xl border border-border bg-surface p-5 text-center shadow-elevated">
+                  <span className="grid size-12 place-items-center rounded-2xl bg-navy-700 text-mist-50 dark:bg-navy-600">
+                    <Icon className="size-6" strokeWidth={1.75} />
+                  </span>
+                  <span className="text-sm font-semibold leading-snug">{label}</span>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
           <SectionReveal>
-            <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-surface px-6 py-7 text-center shadow-elevated sm:px-8 sm:py-8">
-              <p className="mb-4 text-sm text-muted">{t("clientTypes.examplesLabel")}</p>
-              <p className="font-medium leading-relaxed">
-                {(t.raw("clientTypes.examples") as string[]).join(" · ")}
+            <div className="rounded-3xl border border-border bg-surface p-6 shadow-elevated sm:p-8">
+              <p className="mb-5 text-center text-sm font-semibold uppercase tracking-wider text-muted">
+                {t("clientTypes.examplesLabel")}
               </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {clientTypeSectors.map(({ icon: Icon, label, accent }) => (
+                  <div key={label} className="flex items-center gap-3 rounded-xl border border-border/60 p-4">
+                    <span className={cn("grid size-9 shrink-0 place-items-center rounded-xl", accent)}>
+                      <Icon className="size-5" strokeWidth={1.75} />
+                    </span>
+                    <span className="text-sm font-semibold leading-snug">{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </SectionReveal>
         </Container>
       </section>
 
       {/* Consulting advisory */}
-      <section className="py-20 lg:py-28">
+      <section className="bg-surface-2/60 py-20 lg:py-28">
         <Container>
           <SectionReveal className="relative overflow-hidden rounded-3xl border border-navy-500/20 bg-navy-700/[0.04] px-6 py-12 sm:px-12 sm:py-14">
             <div className="mx-auto max-w-3xl">
@@ -244,7 +287,7 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
       </section>
 
       {/* FAQ — answer-engine optimized */}
-      <section className="bg-surface-2/60 py-20 lg:py-28">
+      <section className="py-20 lg:py-28">
         <Container>
           <SectionHeading
             align="center"
