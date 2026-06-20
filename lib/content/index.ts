@@ -43,7 +43,7 @@ import {
 /* Home: animated stat counters                                               */
 /* TODO: confirm real target figures with the owner — these are editable defaults. */
 export type Stat = {
-  id: "consultations" | "projects" | "debtFiles" | "happyClients";
+  id: "consultations" | "debtFiles" | "happyClients";
   target: number;
   prefix?: string;
   suffix?: string;
@@ -52,7 +52,6 @@ export type Stat = {
 
 export const STATS: Stat[] = [
   { id: "consultations", target: 1200, prefix: "+", icon: MessagesSquare },
-  { id: "projects", target: 85, prefix: "+", icon: Building2 },
   { id: "debtFiles", target: 430, prefix: "+", icon: FileCheck2 },
   { id: "happyClients", target: 98, suffix: "%", icon: Smile },
 ];

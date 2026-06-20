@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Quote } from "lucide-react";
+import { Quote, ShieldCheck } from "lucide-react";
 
 import type { Locale } from "@/i18n/routing";
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from "@/lib/seo";
@@ -56,6 +56,16 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
       />
 
       <PageHero kicker={t("hero.kicker")} title={t("hero.title")} subtitle={t("hero.subtitle")} />
+
+      {/* Licensing trust band */}
+      <div className="border-b border-gold-400/20 bg-gold-400/[0.05] py-4">
+        <Container>
+          <p className="flex items-center justify-center gap-2.5 text-center text-sm font-medium text-gold-700 dark:text-gold-300">
+            <ShieldCheck className="size-4 shrink-0" aria-hidden />
+            {t("licensed")}
+          </p>
+        </Container>
+      </div>
 
       <IntroBand ns="debt" />
 
@@ -141,6 +151,56 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
               </StaggerItem>
             ))}
           </Stagger>
+        </Container>
+      </section>
+
+      {/* Who we serve */}
+      <section className="bg-surface-2/60 py-20 lg:py-28">
+        <Container>
+          <SectionHeading
+            kicker={t("clientTypes.kicker")}
+            heading={t("clientTypes.heading")}
+            sub={t("clientTypes.sub")}
+            align="center"
+            className="mb-12"
+          />
+          <div className="flex flex-wrap justify-center gap-3 mb-10">
+            {(t.raw("clientTypes.segments") as string[]).map((seg) => (
+              <span
+                key={seg}
+                className="rounded-full border border-navy-500/30 bg-navy-700/10 px-5 py-2 text-sm font-semibold text-navy-700 dark:text-navy-200"
+              >
+                {seg}
+              </span>
+            ))}
+          </div>
+          <SectionReveal>
+            <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-surface px-6 py-7 text-center shadow-elevated sm:px-8 sm:py-8">
+              <p className="mb-4 text-sm text-muted">{t("clientTypes.examplesLabel")}</p>
+              <p className="font-medium leading-relaxed">
+                {(t.raw("clientTypes.examples") as string[]).join(" · ")}
+              </p>
+            </div>
+          </SectionReveal>
+        </Container>
+      </section>
+
+      {/* Consulting advisory */}
+      <section className="py-20 lg:py-28">
+        <Container>
+          <SectionReveal className="relative overflow-hidden rounded-3xl border border-navy-500/20 bg-navy-700/[0.04] px-6 py-12 sm:px-12 sm:py-14">
+            <div className="mx-auto max-w-3xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-navy-500/30 bg-navy-700/10 px-4 py-1.5 text-sm font-medium text-navy-700 dark:text-navy-200">
+                {t("consulting.kicker")}
+              </span>
+              <h2 className="mt-5 text-balance text-2xl font-bold sm:text-3xl">
+                {t("consulting.heading")}
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted">
+                {t("consulting.body")}
+              </p>
+            </div>
+          </SectionReveal>
         </Container>
       </section>
 

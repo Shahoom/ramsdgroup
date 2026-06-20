@@ -81,6 +81,31 @@ export function organizationJsonLd(locale: Locale) {
         telephone: SITE.phoneE164,
         logo: `${SITE.url}/brand/logo.png`,
         description,
+        hasCredential: {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory:
+            locale === "ar"
+              ? "مرخصون لدى وزارة التجارة والصناعة وترويج الاستثمار في سلطنة عُمان"
+              : "Licensed by the Ministry of Commerce, Industry and Investment Promotion of the Sultanate of Oman",
+        },
+        knowsAbout:
+          locale === "ar"
+            ? [
+                "تحصيل الديون",
+                "استرداد الديون المتعثرة",
+                "تنفيذ الأحكام المدنية العابرة للحدود",
+                "خدمات التأشيرات",
+                "تأشيرة شنغن",
+                "تأشيرات السعودية",
+              ]
+            : [
+                "Debt collection",
+                "Bad debt recovery",
+                "Cross-border civil judgment enforcement",
+                "Visa services",
+                "Schengen visa",
+                "Saudi Arabia visas",
+              ],
         sameAs: [LINKS.instagram, LINKS.whatsappChannel],
       },
       {
@@ -102,9 +127,16 @@ export function organizationJsonLd(locale: Locale) {
           latitude: SITE.location.lat,
           longitude: SITE.location.lng,
         },
-        areaServed: {
-          "@type": "Country",
-          name: "Oman",
+        areaServed: [
+          { "@type": "Country", name: "Oman" },
+          { "@type": "Place", name: "International" },
+        ],
+        hasCredential: {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory:
+            locale === "ar"
+              ? "مرخصون لدى وزارة التجارة والصناعة وترويج الاستثمار في سلطنة عُمان"
+              : "Licensed by the Ministry of Commerce, Industry and Investment Promotion of the Sultanate of Oman",
         },
         sameAs: [LINKS.instagram, LINKS.whatsappChannel],
       },

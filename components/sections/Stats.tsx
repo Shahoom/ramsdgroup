@@ -11,7 +11,7 @@ export function Stats() {
   return (
     <section className="relative py-16 lg:py-20" aria-label="Key figures">
       <Container>
-        <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+        <Stagger className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:gap-6">
           {STATS.map((stat) => {
             const Icon = stat.icon;
             return (
