@@ -202,31 +202,8 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
         </Container>
       </section>
 
-      {/* Our commitment */}
-      <section className="bg-surface-2/60 py-20 lg:py-28">
-        <Container>
-          <SectionHeading
-            kicker={t("pledge.kicker")}
-            heading={t("pledge.heading")}
-            align="center"
-            className="mb-12"
-          />
-          <Stagger className="grid gap-5 sm:grid-cols-2">
-            {(t.raw("pledge.items") as { title: string; body: string }[]).map((item, i) => (
-              <StaggerItem key={i}>
-                <div className="flex h-full flex-col gap-3 rounded-2xl border border-gold-400/25 bg-gold-400/[0.04] p-6 sm:p-7">
-                  <span className="size-2 rounded-full bg-gold-400" aria-hidden />
-                  <h3 className="text-lg font-bold">{item.title}</h3>
-                  <p className="leading-relaxed text-muted">{item.body}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </Container>
-      </section>
-
       {/* Who we serve */}
-      <section className="py-20 lg:py-28">
+      <section className="bg-surface-2/60 py-20 lg:py-28">
         <Container>
           <SectionHeading
             kicker={t("clientTypes.kicker")}
@@ -264,6 +241,29 @@ export default async function DebtPage({ params }: { params: Promise<{ locale: L
               </div>
             </div>
           </SectionReveal>
+        </Container>
+      </section>
+
+      {/* Our commitment */}
+      <section className="py-20 lg:py-28">
+        <Container>
+          <SectionHeading
+            kicker={t("pledge.kicker")}
+            heading={t("pledge.heading")}
+            align="center"
+            className="mb-12"
+          />
+          <Stagger className="grid gap-5 sm:grid-cols-2">
+            {(t.raw("pledge.items") as { title: string; body: string }[]).map((item, i) => (
+              <StaggerItem key={i}>
+                <div className="flex h-full flex-col gap-3 rounded-2xl border border-gold-400/25 bg-gold-400/[0.04] p-6 sm:p-7">
+                  <span className="size-2 rounded-full bg-gold-400" aria-hidden />
+                  <h3 className="text-lg font-bold">{item.title}</h3>
+                  <p className="leading-relaxed text-muted">{item.body}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
         </Container>
       </section>
 
