@@ -35,7 +35,7 @@ export const LINKS = {
     "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3-6RYa4kpnXBkn1Rt-wHynsb1_OQd-GDsu5PMp7v83GKl4tO4gX1PhEsE4ZFrrdpX6Dsb75jsh?gv=true",
   // Company profile PDF (Google Drive).
   companyProfile:
-    "https://drive.google.com/file/d/1ck2c5fqffn_BbOq96NI9p-leHA3YoWvh/view?usp=sharing",
+    "https://drive.google.com/file/d/1qZfvFBpG29JxM5qgpBHKa5_bCIclHe2K/view?usp=sharing",
   // Driving directions to the office (Google Maps share link).
   mapsDirections: "https://maps.app.goo.gl/YS1HWK81eW1KoZL48",
   // Embeddable map pinned to the exact office location via place ID.

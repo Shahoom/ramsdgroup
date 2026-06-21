@@ -49,19 +49,34 @@ export function Header() {
         )}
       >
         <Container className="flex items-center justify-between gap-4 py-3 lg:py-4">
-          {/* Logo */}
+          {/* Logo — two fixed-filter images cross-faded via opacity so colour
+              never mid-transitions while scrolling. Natural for light header;
+              white/inverted for the transparent dark hero. */}
           <Link href="/" aria-label={t("brandAlt")} className="relative z-10 shrink-0">
-            <Image
-              src="/brand/logo.png"
-              alt={t("brandAlt")}
-              width={248}
-              height={70}
-              priority
-              className={cn(
-                "h-12 w-auto object-contain drop-shadow-sm transition-[filter,height] duration-500 sm:h-16",
-                logoLight && "brightness-0 invert drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]",
-              )}
-            />
+            <div className="relative h-12 sm:h-16">
+              <Image
+                src="/brand/logo.png"
+                alt={t("brandAlt")}
+                width={248}
+                height={70}
+                priority
+                className={cn(
+                  "h-12 w-auto object-contain drop-shadow-sm transition-opacity duration-500 sm:h-16",
+                  logoLight ? "opacity-0" : "opacity-100",
+                )}
+              />
+              <Image
+                src="/brand/logo.png"
+                alt=""
+                aria-hidden
+                width={248}
+                height={70}
+                className={cn(
+                  "absolute inset-0 h-12 w-auto object-contain brightness-0 invert drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] transition-opacity duration-500 sm:h-16",
+                  logoLight ? "opacity-100" : "opacity-0",
+                )}
+              />
+            </div>
           </Link>
 
           {/* Desktop nav */}

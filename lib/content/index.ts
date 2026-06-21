@@ -99,9 +99,6 @@ export type Testimonial = { id: string; image?: string };
 export const TESTIMONIALS: Testimonial[] = [
   { id: "1", image: "/images/testimonial-1.jpeg" },
   { id: "2", image: "/images/testimonial-2.jpeg" },
-  { id: "3" },
-  { id: "4" },
   { id: "5" },
-  { id: "6" },
   { id: "7" },
 ];
