@@ -11,7 +11,7 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { SectionReveal, Stagger, StaggerItem } from "@/components/motion/SectionReveal";
+import { SectionReveal } from "@/components/motion/SectionReveal";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 import { PageHero } from "@/components/sections/PageHero";

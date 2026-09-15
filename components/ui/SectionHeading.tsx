@@ -38,7 +38,7 @@ export function SectionHeading({
       {kicker && (
         <div
           className={cn(
-            "inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em]",
+            "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold uppercase tracking-[0.12em]",
             tone === "invert"
               ? "border-gold-300/25 bg-gold-300/10 text-gold-200"
               : "border-gold-500/20 bg-gold-400/[0.07] text-gold-600 dark:border-gold-300/25 dark:bg-gold-300/10 dark:text-gold-300",

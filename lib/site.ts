@@ -9,8 +9,7 @@ export const SITE = {
   nameAr: "رام للتنمية المستدامة",
   shortName: "RAM",
   legalName: "RAM Sustainable Development CO.",
-  // Update once the new site is deployed to its production domain.
-  url: "https://ramsdgroup.com",
+  url: "https://www.ramsdgroup.com",
   email: "info@ramsdgroup.com",
   // E.164 phone, and a digits-only variant for the WhatsApp deep link.
   phoneDisplay: "+968-71712701",
