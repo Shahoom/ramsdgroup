@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE, LINKS } from "./site";
 import type { Locale } from "@/i18n/routing";
+import type { LocalizedEntry } from "@/lib/content/schema";
 
 /** Absolute URL for a given locale + path ("" = home). */
 export function localizedUrl(locale: Locale, path = "") {
@@ -187,4 +188,34 @@ export function articleJsonLd(locale: Locale, entry: { slug: string; title: stri
     author: { "@type": "Organization", name: entry.author || SITE.name },
     publisher: { "@id": `${SITE.url}/#organization` },
   };
+}
+
+export function entryDetailJsonLd(locale: Locale, entry: Pick<LocalizedEntry, "type" | "slug" | "title" | "excerpt" | "publishedAt" | "updatedAt" | "author" | "blocks">) {
+  const parent = entry.type === "article" ? "/insights" : entry.type === "service" ? "/services" : "/industries";
+  const parentName = locale === "ar"
+    ? entry.type === "article" ? "المقالات" : entry.type === "service" ? "الخدمات" : "القطاعات"
+    : entry.type === "article" ? "Insights" : entry.type === "service" ? "Services" : "Industries";
+  const faq = entry.blocks.find((block) => block.type === "faq");
+  const primary = entry.type === "article"
+    ? articleJsonLd(locale, entry)
+    : entry.type === "service"
+      ? serviceJsonLd(locale, { name: entry.title, description: entry.excerpt, path: `${parent}/${entry.slug}`, serviceType: entry.title })
+      : {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: entry.title,
+          description: entry.excerpt,
+          url: localizedUrl(locale, `${parent}/${entry.slug}`),
+          inLanguage: locale,
+        };
+
+  return [
+    breadcrumbJsonLd(locale, [
+      { name: locale === "ar" ? "الرئيسية" : "Home", path: "" },
+      { name: parentName, path: parent },
+      { name: entry.title, path: `${parent}/${entry.slug}` },
+    ]),
+    primary,
+    ...(faq && faq.type === "faq" ? [faqJsonLd(faq.items.map((item) => ({ q: item.question, a: item.answer })))] : []),
+  ];
 }
