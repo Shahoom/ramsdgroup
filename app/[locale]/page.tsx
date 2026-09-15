@@ -1,107 +1,18 @@
 import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { useTranslations } from "next-intl";
-import { FileText } from "lucide-react";
+import { ArrowDownLeft, CheckCircle2, FileText, Globe2, Handshake, Scale, ShieldCheck } from "lucide-react";
 
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
-import { LINKS } from "@/lib/site";
-import { PROCESS_STEPS } from "@/lib/content";
-
+import { listFeaturedEntries } from "@/lib/content/repository";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { SectionReveal } from "@/components/motion/SectionReveal";
-import { InfinityGlyph } from "@/components/motion/InfinityGlyph";
+import { EntryCard } from "@/components/content/EntryCard";
 
-import { Hero } from "@/components/sections/Hero";
-import { Stats } from "@/components/sections/Stats";
-import { ServiceCards } from "@/components/sections/ServiceCards";
-import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
-import { CTABanner } from "@/components/sections/CTABanner";
-import { Testimonials } from "@/components/sections/Testimonials";
+const copy = {
+  ar: { title: "تحصيل مستحقاتك بمسار واضح ومحسوب", intro: "رام للتنمية المستدامة شريك متخصص في تحصيل الديون التجارية والتسويات الودية والتحصيل القانوني والدولي، من مسقط إلى المنطقة والعالم.", kicker: "خبرة في التحصيل منذ 2012", primary: "اطلب تقييمًا أوليًا", secondary: "استكشف خدماتنا", trust: ["سرية في التعامل", "تواصل مهني موثق", "تقارير ومتابعة واضحة"], services: "حلول استرداد متكاملة", servicesSub: "نختار المسار الأنسب لطبيعة المطالبة والعلاقة التجارية، من التفاوض وحتى التصعيد عند الحاجة.", industries: "نفهم سياق قطاعك", method: "منهجية تجعل كل خطوة واضحة", methodSub: "نبدأ بالتقييم والتحقق، ثم التواصل والتفاوض، وننتقل إلى الإجراء القانوني والتنفيذ فقط حين يصبح ذلك هو المسار المناسب.", insight: "معرفة تساعدك على اتخاذ قرار أفضل", close: "لديك مستحقات متأخرة؟ ابدأ بتقييم مهني للملف.", closeCta: "تحدث مع فريق رام" },
+  en: { title: "Recover what is due through a clear, considered path", intro: "RAM Sustainable Development specializes in commercial debt collection, amicable settlements, legal recovery, and international collections—from Muscat to the region and beyond.", kicker: "Recovery experience since 2012", primary: "Request an assessment", secondary: "Explore our services", trust: ["Confidential handling", "Documented professional engagement", "Clear reporting and follow-up"], services: "Integrated recovery solutions", servicesSub: "We select the route that fits the claim and commercial relationship—from negotiation to escalation when necessary.", industries: "We understand your sector", method: "A method that keeps every step clear", methodSub: "We assess and verify first, then engage and negotiate, moving to legal action and enforcement only when that becomes the appropriate route.", insight: "Knowledge for better recovery decisions", close: "Have overdue receivables? Start with a professional claim assessment.", closeCta: "Talk to the RAM team" },
+} as const;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "meta.home" });
-  const keywords = t.has("keywords") ? t("keywords") : undefined;
-  return buildMetadata({ locale, path: "", title: t("title"), description: t("description"), keywords });
-}
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> { const { locale } = await params; const t = copy[locale]; return buildMetadata({ locale, title: locale === "ar" ? "رام للتنمية المستدامة | تحصيل الديون في عُمان" : "RAM Sustainable Development | Debt Collection Oman", description: t.intro }); }
 
-export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
-  return (
-    <>
-      <Hero />
-      <Stats />
-      <AboutBand />
-      <ServiceCards />
-      <ServicesBand />
-      <ProcessBand />
-      <CTABanner />
-      <Testimonials />
-    </>
-  );
-}
-
-function AboutBand() {
-  const t = useTranslations("home.about");
-  return (
-    <section className="bg-grain relative overflow-hidden py-20 lg:py-28">
-      <Container>
-        <SectionReveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <InfinityGlyph className="h-12 w-24 text-gold-400" />
-          <p className="mt-8 text-balance text-2xl font-medium leading-relaxed text-foreground sm:text-3xl sm:leading-[1.5]">
-            {t("body")}
-          </p>
-        </SectionReveal>
-      </Container>
-    </section>
-  );
-}
-
-function ServicesBand() {
-  const t = useTranslations("home.servicesBand");
-  return (
-    <section className="relative overflow-hidden bg-surface-2/60 py-20 lg:py-28">
-      <InfinityGlyph
-        className="pointer-events-none absolute -end-10 top-1/2 hidden h-64 w-[28rem] -translate-y-1/2 text-gold-400/15 lg:block"
-        animate={false}
-      />
-      <Container className="relative">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          <SectionHeading kicker={t("kicker")} heading={t("heading")} />
-          <SectionReveal delay={0.1} className="lg:ps-8">
-            <p className="text-lg leading-relaxed text-muted">{t("body")}</p>
-            <Button asChild variant="gold" size="lg" className="mt-8">
-              <a href={LINKS.companyProfile} target="_blank" rel="noopener noreferrer">
-                <FileText className="size-5" />
-                {t("button")}
-              </a>
-            </Button>
-          </SectionReveal>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function ProcessBand() {
-  const t = useTranslations("home.process");
-  return (
-    <section className="py-20 lg:py-28">
-      <Container>
-        <SectionHeading kicker={t("kicker")} heading={t("heading")} sub={t("sub")} className="mb-14 max-w-3xl" />
-        <div className="mx-auto max-w-3xl">
-          <ProcessTimeline ns="home.process" steps={PROCESS_STEPS} />
-        </div>
-      </Container>
-    </section>
-  );
-}
+export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) { const { locale } = await params; const t = copy[locale]; const [services, industries, articles] = await Promise.all([listFeaturedEntries("service", locale, 6), listFeaturedEntries("industry", locale, 3), listFeaturedEntries("article", locale, 3)]); return <><section className="mesh-navy relative isolate min-h-[92vh] overflow-hidden pb-24 pt-36 text-white lg:pt-44"><div className="absolute -end-40 top-24 size-[38rem] rounded-full border border-gold-300/15" /><div className="absolute -end-16 top-48 size-[24rem] rounded-full border border-gold-300/20" /><Container className="relative"><div className="max-w-4xl"><p className="inline-flex rounded-full border border-gold-300/30 bg-gold-300/8 px-4 py-2 text-sm font-bold text-gold-200">{t.kicker}</p><h1 className="mt-7 text-5xl font-bold leading-[1.08] sm:text-6xl lg:text-8xl">{t.title}</h1><p className="mt-8 max-w-3xl text-lg leading-8 text-mist-100/75 sm:text-xl">{t.intro}</p><div className="mt-10 flex flex-wrap gap-4"><Link href="/contact" className="rounded-full bg-gold-400 px-7 py-3.5 font-bold text-navy-950">{t.primary}</Link><Link href="/services" className="rounded-full border border-white/25 px-7 py-3.5 font-bold">{t.secondary}</Link></div></div><div className="mt-20 grid gap-3 border-t border-white/10 pt-7 sm:grid-cols-3">{t.trust.map((item) => <p key={item} className="flex items-center gap-3 text-sm text-mist-100/75"><CheckCircle2 className="size-5 text-gold-300" />{item}</p>)}</div></Container></section><section className="py-24"><Container><div className="max-w-3xl"><p className="text-sm font-bold text-gold-700">01 — {locale === "ar" ? "الخدمات" : "SERVICES"}</p><h2 className="mt-4 text-4xl font-bold sm:text-5xl">{t.services}</h2><p className="mt-5 text-lg text-muted">{t.servicesSub}</p></div><div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{services.map((entry) => <EntryCard key={entry.id} entry={entry} />)}</div></Container></section><section className="bg-navy-950 py-24 text-white"><Container><div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><p className="text-sm font-bold text-gold-300">02 — {locale === "ar" ? "منهجية العمل" : "METHOD"}</p><h2 className="mt-4 text-4xl font-bold sm:text-5xl">{t.method}</h2><p className="mt-5 text-mist-100/70">{t.methodSub}</p><Link href="/how-we-work" className="mt-8 inline-flex items-center gap-2 font-bold text-gold-300">{locale === "ar" ? "شاهد المسار الكامل" : "See the complete path"}<ArrowDownLeft className="size-5" /></Link></div><div className="grid gap-4 sm:grid-cols-2">{[[FileText, locale === "ar" ? "تقييم الملف" : "Case assessment"], [Globe2, locale === "ar" ? "التحقق والتواصل" : "Verification & contact"], [Handshake, locale === "ar" ? "التفاوض والتسوية" : "Negotiation & settlement"], [Scale, locale === "ar" ? "التصعيد والتنفيذ" : "Escalation & enforcement"]].map(([Icon, label], i) => { const C = Icon as typeof FileText; return <div key={String(label)} className="rounded-3xl border border-white/10 bg-white/5 p-6"><C className="size-6 text-gold-300" /><p className="mt-8 text-xs text-mist-300">0{i + 1}</p><h3 className="mt-2 text-xl font-bold">{String(label)}</h3></div>; })}</div></div></Container></section><section className="py-24"><Container><div className="flex items-end justify-between gap-6"><div><p className="text-sm font-bold text-gold-700">03 — {locale === "ar" ? "القطاعات" : "INDUSTRIES"}</p><h2 className="mt-4 text-4xl font-bold sm:text-5xl">{t.industries}</h2></div><Link href="/industries" className="hidden font-bold text-gold-700 sm:block">{locale === "ar" ? "كل القطاعات" : "All industries"}</Link></div><div className="mt-12 grid gap-5 lg:grid-cols-3">{industries.map((entry) => <EntryCard key={entry.id} entry={entry} />)}</div></Container></section><section className="border-y bg-surface-2/50 py-24"><Container><div className="flex items-center gap-3"><ShieldCheck className="size-7 text-gold-600" /><h2 className="text-4xl font-bold">{t.insight}</h2></div><div className="mt-10 grid gap-5 lg:grid-cols-3">{articles.map((entry) => <EntryCard key={entry.id} entry={entry} />)}</div></Container></section><section className="py-20"><Container><div className="rounded-[2.5rem] bg-gold-400 px-7 py-14 text-center text-navy-950 sm:px-14"><h2 className="mx-auto max-w-3xl text-4xl font-bold">{t.close}</h2><Link href="/contact" className="mt-8 inline-block rounded-full bg-navy-950 px-7 py-3.5 font-bold text-white">{t.closeCta}</Link></div></Container></section></>; }

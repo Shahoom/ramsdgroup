@@ -1,0 +1,3 @@
+import type { Metadata } from "next"; import type { Locale } from "@/i18n/routing"; import { buildMetadata } from "@/lib/seo";
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> { const { locale } = await params; return buildMetadata({ locale, path: "/faq", title: locale === "ar" ? "الأسئلة الشائعة عن تحصيل الديون | رام" : "Debt Recovery FAQ | RAM", description: locale === "ar" ? "إجابات واضحة حول تقييم المطالبات والتسويات والتحصيل القانوني والدولي." : "Clear answers about claim assessment, settlements, legal recovery, and international collections." }); }
+export default function Layout({ children }: { children: React.ReactNode }) { return children; }

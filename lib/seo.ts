@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n/routing";
 /** Absolute URL for a given locale + path ("" = home). */
 export function localizedUrl(locale: Locale, path = "") {
   const clean = path.replace(/^\//, "");
-  const prefix = locale === "en" ? "/en" : "";
+  const prefix = `/${locale}`;
   const suffix = clean ? `/${clean}` : "";
   return `${SITE.url}${prefix}${suffix}` || SITE.url;
 }
@@ -41,7 +41,7 @@ export function buildMetadata({
       languages: {
         ar: localizedUrl("ar", path),
         en: localizedUrl("en", path),
-        "x-default": localizedUrl("ar", path),
+        "x-default": `${SITE.url}${path ? `/${path.replace(/^\//, "")}` : ""}`,
       },
     },
     openGraph: {
@@ -65,8 +65,8 @@ export function buildMetadata({
 export function organizationJsonLd(locale: Locale) {
   const description =
     locale === "ar"
-      ? "رام للتنمية المستدامة — أفضل شركة تحصيل ديون في مسقط، سلطنة عُمان. نقدّم خدمات تحصيل الديون الاحترافية من الشركات والأفراد، والاستشارات المالية، وتنفيذ الأحكام المدنية العابرة للحدود. مرخصون بوزارة التجارة العُمانية."
-      : "RAM Sustainable Development — best debt collection company in Muscat, Oman. Licensed by the Ministry of Commerce. Professional debt collection from companies and individuals, financial advisory, and cross-border civil judgment enforcement.";
+      ? "رام للتنمية المستدامة شركة مقرها مسقط، تأسس قسم تحصيل الديون فيها عام 2018، وتقدم التحصيل التجاري والتسويات الودية والتحصيل القانوني والدولي والميداني والاستشارات."
+      : "RAM Sustainable Development is based in Muscat. Its debt collection department was established in 2018 and provides commercial, amicable, legal, international, and field recovery services and advisory.";
 
   return {
     "@context": "https://schema.org",
@@ -81,13 +81,6 @@ export function organizationJsonLd(locale: Locale) {
         telephone: SITE.phoneE164,
         logo: `${SITE.url}/brand/logo.png`,
         description,
-        hasCredential: {
-          "@type": "EducationalOccupationalCredential",
-          credentialCategory:
-            locale === "ar"
-              ? "مرخصون لدى وزارة التجارة والصناعة وترويج الاستثمار في سلطنة عُمان"
-              : "Licensed by the Ministry of Commerce, Industry and Investment Promotion of the Sultanate of Oman",
-        },
         knowsAbout:
           locale === "ar"
             ? [
@@ -116,7 +109,6 @@ export function organizationJsonLd(locale: Locale) {
         url: SITE.url,
         email: SITE.email,
         telephone: SITE.phoneE164,
-        priceRange: "$$",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Muscat",
@@ -131,13 +123,6 @@ export function organizationJsonLd(locale: Locale) {
           { "@type": "Country", name: "Oman" },
           { "@type": "Place", name: "International" },
         ],
-        hasCredential: {
-          "@type": "EducationalOccupationalCredential",
-          credentialCategory:
-            locale === "ar"
-              ? "مرخصون لدى وزارة التجارة والصناعة وترويج الاستثمار في سلطنة عُمان"
-              : "Licensed by the Ministry of Commerce, Industry and Investment Promotion of the Sultanate of Oman",
-        },
         sameAs: [LINKS.instagram, LINKS.whatsappChannel],
       },
     ],
@@ -186,5 +171,20 @@ export function serviceJsonLd(
     provider: { "@id": `${SITE.url}/#organization` },
     areaServed: { "@type": "Country", name: "Oman" },
     availableLanguage: ["ar", "en"],
+  };
+}
+
+export function articleJsonLd(locale: Locale, entry: { slug: string; title: string; excerpt: string; publishedAt: string; updatedAt: string; author?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: entry.title,
+    description: entry.excerpt,
+    datePublished: entry.publishedAt,
+    dateModified: entry.updatedAt,
+    inLanguage: locale,
+    mainEntityOfPage: localizedUrl(locale, `/insights/${entry.slug}`),
+    author: { "@type": "Organization", name: entry.author || SITE.name },
+    publisher: { "@id": `${SITE.url}/#organization` },
   };
 }

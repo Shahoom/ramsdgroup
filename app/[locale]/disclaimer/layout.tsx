@@ -1,0 +1,3 @@
+import type { Metadata } from "next"; import type { Locale } from "@/i18n/routing"; import { buildMetadata } from "@/lib/seo";
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> { const { locale } = await params; return buildMetadata({ locale, path: "/disclaimer", title: locale === "ar" ? "إخلاء المسؤولية | رام" : "Disclaimer | RAM", description: locale === "ar" ? "حدود المعلومات العامة ونتائج التحصيل المنشورة في موقع رام." : "Limits of general information and recovery outcomes published on RAM's website." }); }
+export default function Layout({ children }: { children: React.ReactNode }) { return children; }

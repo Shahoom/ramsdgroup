@@ -1,212 +1,22 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { MessageCircle } from "lucide-react";
+import { useLocale } from "next-intl";
+import { Menu, MessageSquareText, X } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
-import { NAV_ITEMS, LINKS } from "@/lib/site";
+import { NAV_ITEMS } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { Container } from "@/components/ui/Container";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+
+const labels = {
+  ar: { home: "الرئيسية", services: "الخدمات", industries: "القطاعات", howWeWork: "منهجية العمل", insights: "المعرفة", about: "عن رام", contact: "تواصل معنا", menu: "فتح القائمة", close: "إغلاق القائمة", cta: "اطلب تقييمًا" },
+  en: { home: "Home", services: "Services", industries: "Industries", howWeWork: "How we work", insights: "Insights", about: "About", contact: "Contact", menu: "Open menu", close: "Close menu", cta: "Request assessment" },
+} as const;
 
 export function Header() {
-  const t = useTranslations("nav");
-  const pathname = usePathname();
-  const reduce = useReducedMotion();
-  const [open, setOpen] = React.useState(false);
-
-  // Subscribe to scroll position via an external store (no setState-in-effect).
-  const scrolled = React.useSyncExternalStore(
-    (cb) => {
-      window.addEventListener("scroll", cb, { passive: true });
-      return () => window.removeEventListener("scroll", cb);
-    },
-    () => window.scrollY > 24,
-    () => false,
-  );
-
-  // Close the mobile menu whenever the route changes (render-time reset, not an effect).
-  const [prevPathname, setPrevPathname] = React.useState(pathname);
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
-    setOpen(false);
-  }
-
-  const logoLight = !scrolled || open;
-
-  return (
-    <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-500",
-          scrolled
-            ? "border-b border-border bg-surface/80 text-foreground shadow-elevated backdrop-blur-xl"
-            : "bg-transparent text-mist-50",
-        )}
-      >
-        <Container className="flex items-center justify-between gap-4 py-3 lg:py-4">
-          {/* Logo — two fixed-filter images cross-faded via opacity so colour
-              never mid-transitions while scrolling. Natural for light header;
-              white/inverted for the transparent dark hero. */}
-          <Link href="/" aria-label={t("brandAlt")} className="relative z-10 shrink-0">
-            <div className="relative h-12 sm:h-16">
-              <Image
-                src="/brand/logo.png"
-                alt={t("brandAlt")}
-                width={248}
-                height={70}
-                priority
-                className={cn(
-                  "h-12 w-auto object-contain drop-shadow-sm transition-opacity duration-500 sm:h-16",
-                  logoLight ? "opacity-0" : "opacity-100",
-                )}
-              />
-              <Image
-                src="/brand/logo.png"
-                alt=""
-                aria-hidden
-                width={248}
-                height={70}
-                className={cn(
-                  "absolute inset-0 h-12 w-auto object-contain brightness-0 invert drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] transition-opacity duration-500 sm:h-16",
-                  logoLight ? "opacity-100" : "opacity-0",
-                )}
-              />
-            </div>
-          </Link>
-
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-            {NAV_ITEMS.map((item) => {
-              const active = pathname === item.href;
-              return (
-                <Link
-                  key={item.key}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "relative rounded-full px-4 py-2 text-[0.95rem] font-medium text-current/85 transition-colors hover:text-current",
-                    active && "text-current",
-                  )}
-                >
-                  {t(item.key)}
-                  {active && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-gold-400"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Desktop actions */}
-          <div className="hidden items-center gap-2 lg:flex">
-            <LanguageSwitcher />
-            <ThemeToggle />
-            <a
-              href={LINKS.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-current/25 px-4 py-2 text-sm font-medium transition-colors hover:bg-current/10"
-            >
-              <MessageCircle className="size-4" />
-              {t("liveReply")}
-            </a>
-          </div>
-
-          {/* Mobile toggle — sits above the drawer (z-50 header > z-40 drawer) */}
-          <button
-            type="button"
-            className="relative z-10 grid size-11 place-items-center lg:hidden"
-            aria-expanded={open}
-            aria-label={open ? t("closeMenu") : t("openMenu")}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="sr-only">{open ? t("closeMenu") : t("openMenu")}</span>
-            <span className="relative block h-4 w-6">
-              <span
-                className={cn(
-                  "absolute left-0 top-0 h-0.5 w-6 rounded-full bg-current transition-transform duration-300",
-                  open && "top-1/2 -translate-y-1/2 rotate-45",
-                )}
-              />
-              <span
-                className={cn(
-                  "absolute left-0 top-1/2 h-0.5 w-6 -translate-y-1/2 rounded-full bg-current transition-opacity duration-300",
-                  open && "opacity-0",
-                )}
-              />
-              <span
-                className={cn(
-                  "absolute bottom-0 left-0 h-0.5 w-6 rounded-full bg-current transition-transform duration-300",
-                  open && "bottom-1/2 translate-y-1/2 -rotate-45",
-                )}
-              />
-            </span>
-          </button>
-        </Container>
-      </header>
-
-      {/* Mobile drawer — rendered outside <header> so it's never clipped by the header's
-          stacking/containing context (Safari creates a containing block for position:fixed
-          children when backdrop-filter is active on the parent). z-40 keeps it below the
-          header (z-50) so the hamburger / X button stays clickable. */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="mesh-navy fixed inset-0 z-40 flex flex-col text-mist-50 lg:hidden"
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: "-100%" }}
-            animate={reduce ? { opacity: 1 } : { opacity: 1, y: "0%" }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex-1 overflow-auto px-6 pb-10 pt-28">
-              <nav className="flex flex-col gap-1" aria-label="Mobile">
-                {NAV_ITEMS.map((item, i) => (
-                  <motion.div
-                    key={item.key}
-                    initial={reduce ? false : { opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.12 + i * 0.07, duration: 0.4 }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "block border-b border-mist-50/10 py-4 font-display text-2xl",
-                        pathname === item.href ? "text-gold-300" : "text-mist-50",
-                      )}
-                    >
-                      {t(item.key)}
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
-
-              <a
-                href={LINKS.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-medium text-white"
-              >
-                <MessageCircle className="size-5" />
-                {t("liveReply")}
-              </a>
-
-              <div className="mt-10 flex items-center gap-3">
-                <LanguageSwitcher />
-                <ThemeToggle />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+  const locale = useLocale() === "en" ? "en" : "ar"; const t = labels[locale]; const pathname = usePathname(); const [open, setOpen] = useState(false);
+  return <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy-950/90 text-white backdrop-blur-xl"><Container className="flex h-20 items-center justify-between gap-4"><Link href="/" aria-label="RAM Sustainable Development" className="shrink-0"><Image src="/brand/logo-footer.png" width={210} height={62} alt="RAM Sustainable Development" priority className="h-12 w-auto object-contain brightness-0 invert" /></Link><nav aria-label="Primary" className="hidden items-center gap-1 xl:flex">{NAV_ITEMS.map((item) => <Link key={item.key} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={cn("rounded-full px-3.5 py-2 text-sm text-mist-100/75 transition hover:bg-white/8 hover:text-white", pathname === item.href && "bg-white/8 text-gold-300")}>{t[item.key]}</Link>)}</nav><div className="hidden items-center gap-3 xl:flex"><LanguageSwitcher /><Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-gold-400 px-5 py-2.5 text-sm font-bold text-navy-950"><MessageSquareText className="size-4" />{t.cta}</Link></div><button onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? t.close : t.menu} className="grid size-11 place-items-center xl:hidden">{open ? <X /> : <Menu />}</button></Container>{open && <div className="border-t border-white/10 bg-navy-950 px-5 pb-7 xl:hidden"><nav className="mx-auto max-w-7xl py-3">{NAV_ITEMS.map((item) => <Link key={item.key} href={item.href} onClick={() => setOpen(false)} className="block border-b border-white/8 py-3.5 text-lg">{t[item.key]}</Link>)}</nav><div className="mx-auto mt-4 flex max-w-7xl items-center justify-between"><LanguageSwitcher /><Link href="/contact" onClick={() => setOpen(false)} className="rounded-full bg-gold-400 px-5 py-2.5 font-bold text-navy-950">{t.cta}</Link></div></div>}</header>;
 }

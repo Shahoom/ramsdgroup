@@ -1,0 +1,3 @@
+import { Container } from "@/components/ui/Container";
+
+export function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) { return <section className="mesh-navy relative overflow-hidden pb-20 pt-36 text-white lg:pb-28 lg:pt-44"><div className="absolute inset-y-0 end-0 w-1/2 bg-[radial-gradient(circle_at_center,rgba(201,162,75,.18),transparent_65%)]" /><Container className="relative"><p className="text-sm font-bold uppercase tracking-[.2em] text-gold-300">{eyebrow}</p><h1 className="mt-5 max-w-4xl text-4xl font-bold sm:text-6xl">{title}</h1><p className="mt-7 max-w-3xl text-lg text-mist-100/75 sm:text-xl">{description}</p></Container></section>; }

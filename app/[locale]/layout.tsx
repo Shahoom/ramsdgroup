@@ -60,7 +60,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={dir} className={fontVariables} suppressHydrationWarning>
+    <html lang={locale} dir={dir} className={fontVariables} suppressHydrationWarning data-scroll-behavior="smooth">
       <body className="bg-grain min-h-dvh antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <JsonLd data={organizationJsonLd(locale as Locale)} />

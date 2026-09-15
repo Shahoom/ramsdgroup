@@ -1,13 +1,34 @@
+import { createServerClient } from "@supabase/ssr";
 import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import { NextResponse, type NextRequest } from "next/server";
 
-// Next.js 16 renamed the `middleware` file convention to `proxy`. The next-intl
-// handler is just a default-exported request function, which satisfies it.
-export default createMiddleware(routing);
+import { routing } from "@/i18n/routing";
+import { readPublicSupabaseEnv } from "@/lib/env";
+import type { Database } from "@/lib/supabase/types";
 
-export const config = {
-  // Match all pathnames except for:
-  // - /api, /_next, /_vercel (internal)
-  // - anything containing a dot (static files, e.g. /logo.png)
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
-};
+const handleI18n = createMiddleware(routing);
+
+async function refreshAdminSession(request: NextRequest) {
+  const config = readPublicSupabaseEnv();
+  if (!config) return NextResponse.next({ request });
+  let response = NextResponse.next({ request });
+  const supabase = createServerClient<Database>(config.url, config.publishableKey, {
+    cookies: {
+      getAll: () => request.cookies.getAll(),
+      setAll: (cookiesToSet) => {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+        response = NextResponse.next({ request });
+        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+      },
+    },
+  });
+  await supabase.auth.getClaims();
+  return response;
+}
+
+export default function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/admin")) return refreshAdminSession(request);
+  return handleI18n(request);
+}
+
+export const config = { matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"] };

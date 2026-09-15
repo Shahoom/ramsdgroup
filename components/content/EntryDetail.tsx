@@ -1,0 +1,8 @@
+import { ArrowLeft } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import type { LocalizedEntry } from "@/lib/content/schema";
+import { Container } from "@/components/ui/Container";
+import { ContentBlocks } from "@/components/content/ContentBlocks";
+import { PageIntro } from "@/components/content/PageIntro";
+
+export function EntryDetail({ entry }: { entry: LocalizedEntry }) { const parent = entry.type === "service" ? "/services" : entry.type === "industry" ? "/industries" : "/insights"; return <><PageIntro eyebrow={entry.eyebrow ?? "RAM"} title={entry.title} description={entry.excerpt} /><section className="py-20"><Container><div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_300px]"><article className="max-w-3xl"><ContentBlocks blocks={entry.blocks} /></article><aside><div className="sticky top-28 rounded-3xl bg-navy-950 p-6 text-white"><p className="text-sm text-gold-300">{entry.locale === "ar" ? "ناقش ملفك بسرية" : "Discuss your matter confidentially"}</p><h2 className="mt-3 text-2xl font-bold">{entry.locale === "ar" ? "ابدأ بتقييم أولي" : "Start with an initial assessment"}</h2><p className="mt-3 text-sm text-mist-200/70">{entry.locale === "ar" ? "لا ترسل مستندات أو بيانات حساسة عبر النموذج العام." : "Do not send documents or sensitive information through the public form."}</p><Link href="/contact" className="mt-6 inline-flex rounded-full bg-gold-400 px-5 py-3 font-bold text-navy-950">{entry.locale === "ar" ? "تواصل معنا" : "Contact us"}</Link></div></aside></div><Link href={parent} className="mt-16 inline-flex items-center gap-2 font-bold text-gold-700"><ArrowLeft className="size-4" />{entry.locale === "ar" ? "العودة" : "Back"}</Link></Container></section></>; }
