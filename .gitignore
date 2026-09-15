@@ -22,7 +22,12 @@
 
 # misc
 .DS_Store
+._*
+**/._*
 *.pem
+
+# isolated implementation worktrees
+/.worktrees/
 
 # debug
 npm-debug.log*
